@@ -1,4 +1,6 @@
-.PHONY: build push shell build-ruby release-ruby
+.PHONY: build push shell build-ruby release-ruby all
+
+all: build release build-ruby release-ruby
 
 build:
 	@docker build -t rjocoleman/alpine-s3fs:latest .
