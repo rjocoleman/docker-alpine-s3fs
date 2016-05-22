@@ -9,6 +9,7 @@ AWS_SECRET_ACCESS_KEY= # required unless IAM_ROLE is set
 S3_ACL=private # default, optional
 S3_BUCKET=test-bucket # required
 IAM_ROLE= # optional IAM role name, for usage on EC2.
+RUN_STYLE=data-only # default, use base-image to present the entrypoint as exec.
 ```
 
 ## Versions:
@@ -26,6 +27,6 @@ IAM_ROLE= # optional IAM role name, for usage on EC2.
 
 Can be used in two ways:
 
-1. As a data-only container, add this container with the correct ENV to your workload and use the `--volumes-from` command in another container to mount the mount point. Your bucket will be exposed as `/var/s3`.
+1. As a data-only container, add this container with the correct ENV to your workload and use the `--volumes-from` command in another container to mount the mount point. Your bucket will be exposed as `/var/s3`. This will not pass commands to the entrypoint. It will run as an infinite loop. Set env `RUN_STYLE=data-only`
 
-2. As a base image for a container. ENV `MOUNT_POINT` can be changed to direct the mount point to a different directory as required.
+2. As a base image for a container. ENV `MOUNT_POINT` can be changed to direct the mount point to a different directory as required. Set env `RUN_STYLE=base-image`

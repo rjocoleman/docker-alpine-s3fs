@@ -21,4 +21,13 @@ else
   /usr/bin/s3fs ${S3_BUCKET} ${MOUNT_POINT} -o iam_role=${IAM_ROLE},nosuid,nonempty,nodev,allow_other,default_acl=${S3_ACL},retries=5
 fi
 
-exec "$@"
+if [ "$RUN_STYLE" == "data-only" ]; then
+  while :
+    do sleep 1
+  done
+elif [ "$RUN_STYLE" == "base-image" ]; then
+  exec "$@"
+else
+  echo "$RUN_STYLE is not supported"
+  exit 1
+fi
